@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Project</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+</head>
+
+<body>
+    <!-- Intro  -->
+    <div class="introcontainer">
+        <p>Irsa Ashraf | University of Chicago | CAPP 30239: Data Visualization for Policy Analysis | Fall 2022</p>
+    </div>
+    <div class="container"> 
+        <h1> What are New Yorkers Eating? </h1>
+        <h3> New Yorkers Love Food! </h3>
+        <p>
+            In this article, I delve into the gastronomic scene of one of the busiest and liveliest cities in the world. With over 24,000 restaurants, New York tops the list for the city with the most restaurants. For context, you can eat at a different restaurant every day for approximately 22 years without going to the same place twice. 
+        </p>
+        <p>
+            This project was born out of a personal interest in the topic. New York is my favourite city and I absolutely love walking around the city and stumbling upon restaurants and cafes that I have not been to before. It's amazing how I can find an Italian restaurant, a Korean bakery, a sports bar, a fancy seafood restaurant, and a bodega, all within the same block. I have also met some of the nicest and most interesting people while living in New York. Therefore, I was genuinely curious to see how New Yorkers eat - particularly, what their preferred cuisines are, how much they’re willing to spend and how they rate different food.
+        </p>
+        <p>
+            Since working with data on all restaurants would have been beyond the scope of this project, I decided to work with data from Yelp. I scraped Yelp data on businesses labelled as ‘restaurants’ and that had their location labelled as ‘New York City, using the Yelp Fusion API. 
+        </p> 
+        <p><i>
+            For details on the data collection, cleaning and pre-processing, please refer to the ‘Process’ section at the end of the article.
+        </i></p>
+
+        <h3> Where are the most popular restaurants located? </h3>
+    <select>
+        <option value="All">All</option>
+        <option value="Thai">Thai</option>
+        <option value="Italian">Italian</option>
+        <option value="Korean">Korean</option>
+        <option value="French">French</option>
+        <option value="Chinese">Chinese</option>
+        <option value="Seafood">Seafood</option>
+        <option value="Japanese">Japanese</option>
+        <option value="Mexican">Mexican</option>
+        <option value="Cocktail Bars">Cocktail Bars</option>
+        <option value="American (New)">American (New)</option>
+    </select> 
+    <p>
+        I started off by visualising restaurants on a map of the city. My dataset has 94 categories and to avoid cluttering the map with markers for all categories, I focussed on the top ten most popular ones, assuming the number of restaurants available per category reflects demand and hence, popularity. 
+    </p> 
+    <p> 
+        As I had imagined, the map shows the city chequered with restaurants. Interestingly, even though New York is known for its diversity, I found there to be certain areas with clusters of a particular cuisine. A large cluster of Chinese restaurants can be found in Lower Manhattan around the Lower East Side. Since this area is Chinatown, the large cluster of Chinese restaurants makes more sense. Similarly, some Seafood restaurants can be seen along the edge of the island by the Hudson and East Rivers. 
+    </p>
+    </div>
+
+    <style>
+        .mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        }
+    </style>
+
+    <!-- Map Container -->
+    <div class="image-container"> 
+    <div id="map"></div>
+    </div>
+
+    <!-- Bar Chart  -->
+    <div class="container"> 
+        <h3> Do New Yorkers Prefer Italian and American Food? </h3>
+        <p>
+            The bar chart below shows that the favourite cuisines amongst New Yorkers are Italian and American (New) with a total of 61 and 60 restaurants per category. The third most popular cuisine, Japanese, has half the number of restaurants as the top two. This makes sense since the New York $1 pizza is a local favourite and can be found at almost every other block. 
+          Just as I had imagined, Italian, Korean, Thai and Chinese restaurants were among the top ten categories. 
+        </p> 
+    <h4> Count of Restaurants for the Top Ten Most Popular Categories</h4>
+    </div>
+        <div class="image-container"> 
+            <div id="barchart"></div>
+        </div>
+   
+    <!-- Packed Bubble Chart  -->
+    <div class="container"> 
+    <h3> New Yorkers Don’t Like Spending Too Much on Food?  </h3>
+        <p>
+            Zooming out, the packed bubble chart below shows all the 94 cuisines that were available on Yelp and that my dataset consists of. The size of each bubble shows the count of restaurants and the color reflects the price label. From the many yellow bubbles that correspond to ‘$$’, it seems as if New Yorkers are overwhelmingly going to restaurants that do not cost too much. Infact, the cuisines they are most likely to splurge on are Sushi and Mediterranean restaurants, with $$$ price labels. Scandinavian restaurants and Buffets are the only ones with a $$$$ but have a count of just 1.  
+    </p>
+    <h4> Size of all Restaurant Categories and their Price Labels </h4>
+</div>
+    <div class="image-container"> 
+    <div id="bubble-chart"></div>
+    </div>
+    
+    <!-- Horizontal Bar Charts  -->
+    <div class="container">
+        <h3>But are there any cuisines they’re willing to splurge on?</h3>
+        <p>
+            Zooming back into the top ten most highly demanded categories, but this time at a more granular level, I looked at the price segment for each category and how popular each price segment is. From the horizontal bar charts below, it seems as if New Yorkers are willing to pay a premium for Seafood, French, Italian and American (New) food. On the other end of the scale though, we can see that they prefer cheaper Chinese and Thai food. 
+        </p>
+        <h4> Proportion of Restaurants per Price Segment</h4>
+    </div>
+        <div class="image-container"> 
+        <div id="horizontal-chart" class="flex-item">
+        </div>
+        </div>
+    
+    <!-- Heatmap  -->
+    <div class="container">
+            <h3>  New Yorkers really don’t like expensive French and Chinese food! </h3>
+    <p>
+        Finally, the best way to get an insight into New Yorkers’ preferences was to look at how they rated restaurants on Yelp. These ratings are visualised in the heatmap below for each price segment per food category. Lighter colours represent a higher rating and vice versa. Yelp ratings range from 1 to 5 on a continuous scale, however, my dataset has a minimum of 4.0 and a maximum of 5.0 and so, overall, I did not see a lot of variation in ratings. Chinese and French foods are the lowest rated foods with the most expensive restaurants in these two categories receiving the lowest rating of 4.0. Additionally, ratings for expensive restaurants are generally very polarising, ranging from the minimum of 4.0 to the maximum of 5.0. Korean restaurants have the greatest range of ratings from 4.0 to 5.0. 
+    </p>
+    <p>
+        People might not be rating more expensive restaurants highly because they have higher expectations from them, and so are stricter with their ratings. Also, the high price tag could itself be a factor that causes customers to give a lower rating to restaurants.
+    </p>
+    <h4> Average Yelp Ratings per Price and Category </h4>
+
+    </div>
+        <div class="image-container"> 
+        <div id="heatmap"></div>
+    </div>
+    <div class="container">
+    <h2> Conclusion </h2>
+    <p>
+        Overall, Yelp gives some interesting insights on the eating habits of New Yorkers. Some insights, such as the preference for lower price tags and a lower variation in ratings was surprising – I had expected restaurant categories such as Japanese to be on the pricier side and had also expected to see some lower average ratings (below 4.0). Since my dataset was quite small, it is highly likely that the category sizes might be different from what I have visualised here, though I doubt the top two categories would be different since Italian and American (New) restaurant counts were double those of the third highest category. Hence, this might not be the most accurate, but is a good high-level analysis of the eating habits of New Yorkers.  
+    </p>
+    <h2> Process </h2>
+    <p>
+        As I mentioned in the beginning, I chose this topic out of personal interest and curiosity. I extracted my data from Yelp using its API. Yelp provides an API called Fusion that returns information on businesses. Selecting the kind of business allows users to filter for whether they want restaurants, shops, movie theatres, etc. I filtered for businesses labelled as ‘restaurants’ with their location tag labelled as “New York City”. Other data sources that I potentially could have worked with were OpenTable, New York Open data portal and Trip Advisor. I chose Yelp because it provided data on all variables I was interested in visualising - name, location, price, category, and rating. 
+    </p>
+    <p>  
+        Initially, when I started off thinking about this project, I had wanted to investigate the relationship, if any, between area demographics and restaurant features. For example, are there any zip codes with a particularly high proportion of a certain ethnicity that correspondingly also have a higher proportion of that particular cuisine; do areas with a larger Mexican population have a higher proportion of Mexican restaurants. Furthermore, is the median income of a zip code related to the price label of restaurants located there. However, I ended up pivoting from this idea because I could not find racial demographic data on such a granular level. Although I  was able to find data on median income by zip code, I was not able to map restaurant prices to those zip codes. This pivot did not prove to be too disheartening though, because when I did start working with the Yelp data, I ended up finding interesting insights that helped me develop a strong story line. My assumption of the number of restaurants representing consumer preferences and choices gave meaning and insight to this storyline.
+    </p> 
+    <p> 
+        A caveat with the Yelp data is that the API currently returns a maximum of a thousand records and so my dataset was limited to a maximum of 1000 restaurants. Besides this, only restaurants that have at minimum one user review are included in the return call. So even though a restaurant could be found on Yelp, if it does not have at least one user review, it will not be included in the return call. Out of the 1000 restaurants, since I needed categories to identify the most popular restaurants, I ended up dropping any restaurants that had Null values for the ‘Category’ attribute. This further reduced my dataset which is why the maximum count for the top most category, Italian, is only 61 restaurants, even though there are definitely more than 61 Italian restaurants in all of New York City. 
+    </p>
+    <p> 
+        I decided to start off with a map because it felt like the best way to visualise the abundance of restaurants in the city. Since a lot of my analysis consists of drawing comparisons in aggregate values between categories, I used horizontal and vertical bar charts. Finally, since I was dealing with continuous values for Ratings, a heatmap seemed like the best option. 
+    </p>
+    <p> 
+        Being my first time ever working with html and javascript, the project definitely felt challenging and at times I felt I wanted to do more with my visuals, but I could not do so because I had trouble navigating my way around d3.js. Although challenging, it was definitely a rewarding experience learning how to manipulate and visualise data on a topic that excites me so much and I hope to continue expanding on this.  
+    </p>
+
+    <h3> Sources </h3>
+    <ol>
+        <li>
+            <a href="https://www.yelp.com/search?find_desc=&find_loc=New+York%2C+NY">Yelp - Restaurants in New York City</a>
+        </li>
+        <li>
+            <a href="https://www.yelp.com/dataset/documentation/main">Yelp - Fusion API Endpoint Documentation</a>
+        </li>
+        <li>
+            <a href="https://data.cityofnewyork.us/City-Government/Demographic-Statistics-By-Zip-Code/kku6-nxdu"> NYC Open Data - Income by Zipcode, </a>
+        </li>
+        <li>
+            <a href="https://www.statista.com/statistics/259776/number-of-people-who-went-to-restaurants-in-new-york-by-type/">Statista - Number of Restaurants in NYC</a>
+        </li>
+      </ol> 
+
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="bubble2.js"></script>
+    <script src="barchart.js"></script>
+    <script src="map.js"></script>
+    <script src="multiple_bars.js"></script>
+    <script src="heatmap.js"></script>
+
+</body>
+</html>
